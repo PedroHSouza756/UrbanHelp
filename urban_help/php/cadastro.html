@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="estiloComum.css">
+</head>
+<body>
+    <div class="page">
+        <form method="POST" class="formLogin" action="cadastro.php" id="cadastroForm">
+            <h1>Cadastro</h1>
+            <p>Digite os dados de cadastro nos campos abaixo.</p>
+            <label for="nome">Nome:</label>
+            <input type="text" class="inputField" id="nome" name="nome" placeholder="Digite seu nome" autofocus required>
+            <label for="email">E-mail:</label>
+            <input type="email" class="inputField" id="email" name="email" placeholder="Digite seu e-mail" required>
+
+            <div class="documentChoice">
+                <label id="documentoLabel">Escolha o documento:</label>
+                <input type="radio" name="documento" id="documentoCPF" value="cpf" checked required onchange="showField('cpf')"> CPF
+                <input type="radio" name="documento" id="documentoCNPJ" value="cnpj" required onchange="showField('cnpj')"> CNPJ
+            </div>
+
+            <div class="documentFields" id="cpfField">
+                <label for="cpf">CPF:</label>
+                <input type="text" class="inputField" id="cpf" name="cpf" placeholder="Digite seu cpf" required>
+                <!-- Campo oculto para o CPF -->
+                <input type="hidden" id="cpfHidden" name="cpfHidden" value="">
+            </div>
+
+            <div class="documentFields" id="cnpjField">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" class="inputField" id="cnpj" name="cnpj" placeholder="Digite seu cnpj">
+                <label for="telefoneEmpresa">Telefone da Empresa:</label>
+                <input type="tel" class="inputField" id="telefoneEmpresa" name="telefoneEmpresa" placeholder="Digite o telefone da empresa">
+                <!-- Campo oculto para o CNPJ -->
+                <input type="hidden" id="cnpjHidden" name="cnpjHidden" value="">
+                
+                <!-- Campo "serviço" -->
+                <label for="servico">Serviço:</label>
+                <input type="text" class="inputField" id="servico" name="servico" placeholder="Digite o serviço">
+            </div>
+
+            <label for="senha">Senha:</label>
+            <input type="password" class="inputField" id="senha" name="senha" placeholder="Digite sua senha" required>
+            <label for="confirmaSenha">Confirme sua senha:</label>
+            <input type="password" class="inputField" id="confirmaSenha" name="confirmaSenha" placeholder="Confirme sua senha" required>
+            <span id="senhaError" class="error-message"></span>
+            <input type="submit" name="enviar" value="Enviar" class="btn" id="enviarButton" />
+        </form>
+        <div class="result-message" id="resultMessage"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cpfOption = document.querySelector("input[value='cpf']");
+            cpfOption.checked = true;
+            showField('cpf'); // Certifique-se de que o campo de CPF também esteja visível por padrão
+
+            // Adicione um evento de clique ao botão de enviar
+            const enviarButton = document.getElementById("enviarButton");
+            enviarButton.addEventListener("click", function (event) {
+                // Verifique se a opção "CNPJ" está selecionada
+                const cnpjOption = document.querySelector("input[value='cnpj']");
+                if (cnpjOption.checked) {
+                    // Impedir o envio padrão do formulário
+                    event.preventDefault();
+                    
+                    // Aqui você pode adicionar qualquer lógica de validação antes de enviar o formulário
+                    
+                    // Envie o formulário para cadastro.php
+                    document.getElementById("cadastroForm").submit();
+                }
+            });
+        });
+
+        function showField(fieldId) {
+            const cpfField = document.getElementById("cpfField");
+            const cnpjField = document.getElementById("cnpjField");
+            const cpfHidden = document.getElementById("cpfHidden");
+            const cnpjHidden = document.getElementById("cnpjHidden");
+            const servicoField = document.getElementById("servico");
+            const telefoneEmpresaLabel = document.querySelector("div#cnpjField label[for='telefoneEmpresa']");
+            const documentoLabel = document.getElementById("documentoLabel");
+
+            if (fieldId === "cpf") {
+                cpfField.classList.add("active");
+                cnpjField.classList.remove("active");
+                telefoneEmpresaLabel.style.display = "none";
+                documentoLabel.textContent = "Escolha o documento: CPF";
+
+                // Atualize o campo oculto com o valor de CPF
+                cpfHidden.value = "cpf";
+                // Limpe o campo oculto de CNPJ
+                cnpjHidden.value = "";
+                servicoField.style.display = "none"; // Oculte o campo "serviço"
+            } else if (fieldId === "cnpj") {
+                cpfField.classList.remove("active");
+                cnpjField.classList.add("active");
+                telefoneEmpresaLabel.style.display = "block";
+                documentoLabel.textContent = "Escolha o documento: CNPJ";
+
+                // Atualize o campo oculto com o valor de CNPJ
+                cnpjHidden.value = "cnpj";
+                // Limpe o campo oculto de CPF
+                cpfHidden.value = "";
+                servicoField.style.display = "block"; // Exiba o campo "serviço"
+            }
+        }
+    </script>
+    
+</body>
+</html>

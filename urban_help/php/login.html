@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="estiloComum.css">
+</head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<body>
+    <div class="page">
+        <form method="POST" class="formLogin" action="cpfcnpj.php">
+            <h1>Login</h1>
+            <p>Informe suas credenciais abaixo.</p>
+            <label for="cpfCnpj">CPF/CNPJ:</label>
+            <input type="text" class="inputField" id="cpfCnpj" name="cpfCnpj" placeholder="Digite seu CPF ou CNPJ"
+                autofocus required>
+            <label for="password">Senha:</label>
+            <input type="password" class="inputField" id="password" name="password" placeholder="Digite sua senha">
+            <label for="escolha">Selecione o tipo:</label>
+            <select name="escolha" id="escolha">
+                <option value="CPF">CPF</option>
+                <option value="CNPJ">CNPJ</option>
+            </select>
+            <button type="submit" class="btn" id="submit" name="submit">Login</button>
+            <div class="create-account-btn" onclick="criarConta()">Criar Conta</div>
+        </form>
+    </div>
+
+    <script>
+        function criarConta() {
+            // Lógica de criação de conta
+            redirecionarCadastro();
+        }
+
+        function redirecionarIndex() {
+            // Lógica de autenticação (se necessário)
+            
+            // Redirecionar para o index
+            window.location.href = "index.html";
+        }
+
+        function redirecionarCadastro() {
+            // Lógica de redirecionamento para a página de cadastro
+            window.location.href = "cadastro.html";
+        }
+        
+        const cpfCnpjInput = document.getElementById("cpfCnpj");
+
+        cpfCnpjInput.addEventListener("input", () => {
+            const value = cpfCnpjInput.value.replace(/\D/g, ""); // Remove não números
+
+            if (value.length > 11) {
+                cpfCnpjInput.value = formatCnpj(value);
+            } else {
+                cpfCnpjInput.value = formatCpf(value);
+            }
+        });
+
+        function formatCpf(value) {
+            return value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+        }
+
+        function formatCnpj(value) {
+            return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
+        }
+    </script>
+</body>
+</html>

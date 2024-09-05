@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mapa OpenLayers com Menu Retrátil</title>
+  <link rel="stylesheet" href="https://openlayers.org/en/v6.6.1/css/ol.css" type="text/css">
+  <script src="https://openlayers.org/en/v6.6.1/build/ol.js"></script>
+  <link rel="stylesheet" href="estiloMaps.css">
+</head>
+<body>
+  <div class="toolbar expand" id="toolbar">
+    <ul>
+      <li class="submenu">
+        <a href="#">
+          &nbsp
+          <img class="img" width="8%" height="8%" src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png"/>
+          &nbsp
+          Conta
+        </a>
+        <ul class="submenu-content">
+          
+          <li><a href="login.html">
+            <div class="login-icons">
+              <img src="https://cdn.iconscout.com/icon/free/png-256/urban-282-498263.png"/>
+              Sair
+            </div>
+          </a></li>
+        </ul>
+      </li>
+      <li><a href="pesquisa.php">
+        &nbsp
+        <img class="img" width="8%" height="8%" src="https://www.sintrajud.org.br/wp-content/uploads/2020/12/lupa3.png"/>
+        &nbsp
+        Procurar
+      </a></li>
+      <li><a href="sobre.php">
+        &nbsp
+        <img class="img" width="8%" height="8%" src="https://www.nicepng.com/png/full/78-784644_circular-question-mark-button-question-mark-icon-white.png"/>
+        &nbsp
+        Sobre
+      </a></li>
+      <li>
+        <div class="retract-btn" onclick="toggleMenu()">
+          Retrair
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="map"></div>
+
+    <script>
+        // Localização atual do usuário
+        function getLocation() {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Coordenadas da posição atual
+                    var lon = position.coords.longitude;
+                    var lat = position.coords.latitude;
+
+                    // Criar um mapa OpenLayers com a localização atual
+                    var map = new ol.Map({
+                        target: 'map',
+                        layers: [
+                            new ol.layer.Tile({
+                                source: new ol.source.OSM()
+                            })
+                        ],
+                        view: new ol.View({
+                            center: ol.proj.fromLonLat([lon, lat]),
+                            zoom: 15 // Ajuste o nível de zoom conforme necessário
+                        })
+                    });
+                });
+            } else {
+                alert('Geolocalização não está disponível no seu navegador.');
+            }
+        }
+
+        // Chamada à função de obtenção de localização
+        getLocation();
+
+    function toggleMenu() {
+      const toolbar = document.getElementById('toolbar');
+      if (toolbar.classList.contains('expand')) {
+        toolbar.classList.remove('expand');
+        toolbar.classList.add('retract');
+      } else {
+        toolbar.classList.remove('retract');
+        toolbar.classList.add('expand');
+      }
+    }
+
+    const submenuItems = document.querySelectorAll('.submenu');
+    submenuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

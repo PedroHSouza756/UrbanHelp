@@ -1,0 +1,127 @@
+/* Estilos globais */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #023047;
+    background-color: #480ca8;
+    background-image:url( https://i.pinimg.com/originals/9c/33/9f/9c339f034c2c732a1252b8c4a4300ead.png);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: 5%;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: #fff;
+    border-radius: 7px;
+    padding: 40px;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 400px;
+}
+
+.formLogin h1 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 2.3em;
+    text-align: center;
+}
+
+.formLogin p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.formLogin label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.formLogin a {
+    font-size: 13px;
+    color: #555;
+    transition: all linear 160ms;
+}
+
+.formLogin a:hover {
+    color: #f72585;
+}
+
+.btn {
+    background-color: #f72585;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    transition: all linear 160ms;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    background-color: #ff0676;
+}
+
+/* Estilos comuns para todos os campos */
+.inputField {
+    width: 100%;
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: all linear 160ms;
+    outline: none;
+}
+
+.inputField:focus {
+    border: 1px solid #f72585;
+}
+
+/* Estilos específicos para os campos CPF e CNPJ */
+.documentFields {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.documentFields.active {
+    display: flex;
+}
+
+.documentFields label {
+    text-align: left;
+}
+
+/* Estilos para escolha entre CPF e CNPJ */
+.documentChoice {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.documentChoice label {
+    font-size: 14px;
+}
+
+.documentChoice input[type="radio"] {
+    margin-right: 5px;
+}
+.create-account-btn{
+    cursor: pointer;
+}
